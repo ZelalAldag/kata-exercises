@@ -82,9 +82,9 @@ class TestStringCalculator:
         assert ("-1" and "-2" and "-3") in str(error.value)
 
     def test_get_called_count(self):
-        call1 = self.string_calculator.add("1\n2,3")
-        call2 = self.string_calculator.add("1,2,3")
-        call3 = self.string_calculator.add("//*\n1*2*3")
+        self.string_calculator.add("1\n2,3")
+        self.string_calculator.add("1,2,3")
+        self.string_calculator.add("//*\n1*2*3")
 
         result = vars(self.string_calculator)
         assert result["called_count"] == 3
@@ -117,4 +117,9 @@ class TestStringCalculator:
         assert result == 6
 
     def test_long_multiple_delimeter(self):
-        result = self.string_calculator.add("//[**][%%]\n1*2%3")
+        result = self.string_calculator.add("//[**][%%]\n1**2%%3")
+        assert result == 6
+
+    def test_long_and_short_multiple_delimeter(self):
+        result = self.string_calculator.add("//[**][%%][*]\n1**2%%3*4")
+        assert result == 10
